@@ -1,5 +1,6 @@
 package edu.spring.step1;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -8,9 +9,11 @@ public class Event {
     private int id;
     private String msg;
     private Date date;
+    private DateFormat dateFormat;
 
-    public Event(Date date) {
+    public Event(Date date, DateFormat dateFormat) {
         this.date = date;
+        this.dateFormat = dateFormat;
         this.id = ThreadLocalRandom.current().nextInt();
     }
 
@@ -19,7 +22,7 @@ public class Event {
         return "Event{" +
                 "id=" + id +
                 ", msg='" + msg + '\'' +
-                ", date=" + date +
+                ", date=" + dateFormat.format(date) +
                 '}';
     }
 
