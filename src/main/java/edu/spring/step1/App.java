@@ -1,6 +1,6 @@
 package edu.spring.step1;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App {
@@ -10,7 +10,8 @@ public class App {
     public static void main(String[] args) {
 
         @SuppressWarnings("resource")
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+
 
         App app = (App) ctx.getBean("app");
 
@@ -20,6 +21,7 @@ public class App {
 
         event = ctx.getBean(Event.class);
         app.logEvent(event, "Some event for 12");
+        ctx.close();
 
     }
 
@@ -33,5 +35,6 @@ public class App {
         String message = msg.replaceAll(client.getId(), client.getFullName());
         event.setMsg(message);
         eventLogger.logEvent(event);
+
     }
 }

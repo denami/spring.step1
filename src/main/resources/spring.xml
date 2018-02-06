@@ -9,7 +9,12 @@
         <constructor-arg value="J.Smith"/>
     </bean>
 
-    <bean id="eventLogger" class="edu.spring.step1.ConsoleEventLogger"/>
+    <bean id="eventLogger" class="edu.spring.step1.event.logger.CacheFileEventLogger"
+          init-method="init"
+          destroy-method="destroy">
+            <constructor-arg value="c:\pr\tm2.log"/>
+            <constructor-arg value="3"/>
+    </bean>
     <bean id="app" class="edu.spring.step1.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="eventLogger"/>

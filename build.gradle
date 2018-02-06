@@ -25,5 +25,6 @@ dependencies {
 
     // Use MySQL Connector-J
     compile 'mysql:mysql-connector-java:5.1.6'
+    compile 'commons-io:commons-io:2.4'
 
 }
