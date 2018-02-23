@@ -4,9 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="properties.xml" />
+
     <bean id="client" class="edu.spring.step1.Client">
-        <constructor-arg value="12"/>
-        <constructor-arg value="J.Smith"/>
+        <constructor-arg value="${id}"/>
+        <constructor-arg value="${name}"/>
     </bean>
 
     <bean id="cacheFileEventLogger" class="edu.spring.step1.event.logger.CacheFileEventLogger"
