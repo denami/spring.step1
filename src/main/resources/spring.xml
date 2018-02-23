@@ -9,7 +9,7 @@
         <constructor-arg value="J.Smith"/>
     </bean>
 
-    <bean id="eventLogger" class="edu.spring.step1.event.logger.CacheFileEventLogger"
+    <bean id="cacheFileEventLogger" class="edu.spring.step1.event.logger.CacheFileEventLogger"
           init-method="init"
           destroy-method="destroy">
             <constructor-arg value="c:\pr\tm2.log"/>
@@ -17,17 +17,37 @@
     </bean>
     <bean id="app" class="edu.spring.step1.App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="consoleEventLogger"/>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
+
+    <bean id="fileEventLogger" class="edu.spring.step1.event.logger.FileEventLogger" init-method="init">
+        <constructor-arg value="c:\pr\tm2.log"/>
+    </bean>
+
+    <bean id="consoleEventLogger" class="edu.spring.step1.ConsoleEventLogger"/>
 
     <bean id="event" class="edu.spring.step1.Event" scope="prototype">
         <constructor-arg>
             <bean class="java.util.Date"/>
         </constructor-arg>
-    <constructor-arg>
-        <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
-    </constructor-arg>
+        <constructor-arg>
+            <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+        </constructor-arg>
+    </bean>
 
+    <bean id="combinedEventLogger" class="edu.spring.step1.event.logger.CombinedEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="consoleEventLogger"/>
+                <ref bean="fileEventLogger"/>
+            </list>
+        </constructor-arg>
     </bean>
 
 </beans>
