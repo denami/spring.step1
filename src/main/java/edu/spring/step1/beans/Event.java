@@ -1,9 +1,14 @@
-package edu.spring.step1;
+package edu.spring.step1.beans;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Component
+@Scope("prototype")
 public class Event {
 
     private int id;

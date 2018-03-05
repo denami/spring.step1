@@ -1,18 +1,30 @@
-package edu.spring.step1.event.logger;
+package edu.spring.step1.loggers;
 
-import edu.spring.step1.Event;
+import edu.spring.step1.beans.Event;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CacheFileEventLogger extends FileEventLogger {
+
+    @Value("${cache.size:5}")
     private Integer cacheSize;
+
     private List<Event> cache;
 
     public CacheFileEventLogger(String logFilePath, Integer cacheSize) {
         super(logFilePath);
         this.cacheSize = cacheSize;
-        cache = new LinkedList<Event>();
+    }
+
+    @PostConstruct
+    public void initCache() {
+        cache = new ArrayList<Event>(cacheSize);
     }
 
     @Override
@@ -31,6 +43,7 @@ public class CacheFileEventLogger extends FileEventLogger {
         }
     }
 
+    @PreDestroy
     private void destroy() {
         if (!cache.isEmpty()) {
             writeEventFromCache();

@@ -1,15 +1,10 @@
-package edu.spring.step1;
-
+package edu.spring.step1.beans;
 
 public class Client {
 
     private String fullName;
     private String id;
-
-    public Client(String id, String fullName) {
-        this.fullName = fullName;
-        this.id = id;
-    }
+    private String greeting;
 
     public String getFullName() {
         return fullName;
@@ -25,5 +20,13 @@ public class Client {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setGreeting(String greeting) {
+        this.greeting = greeting;
+    }
+
+    public String getGreeting() {
+        return greeting;
     }
 }
