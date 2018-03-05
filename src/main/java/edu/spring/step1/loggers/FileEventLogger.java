@@ -12,9 +12,13 @@ import java.io.IOException;
 @Component
 public class FileEventLogger implements EventLogger {
 
-    @Value("${events.file:target/events_log.txt}")
+    @Value("${events.file:out/events_log.txt}")
     private String logFilePath;
     private File logFile;
+
+    public FileEventLogger() {
+
+    }
 
     public FileEventLogger(String logFilePath) {
         this.logFilePath = logFilePath;

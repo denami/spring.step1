@@ -2,26 +2,40 @@ package edu.spring.step1.spring;
 
 import edu.spring.step1.beans.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 
 @Configuration
+@PropertySource("classpath:client.properties")
 public class AppConfig {
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
-        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+    public static PropertyPlaceholderConfigurer propertyConfigIn() {
+        PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
         Properties property = new Properties();
-        property.setProperty("ignoreResourceNotFound", "true");
-        property.setProperty("systemPropertiesModeName", "SYSTEM_PROPERTIES_MODE_OVERRIDE");
-        configurer.setProperties(property);
+
+        Resource resource = new ClassPathResource("client.properties");
+
+        configurer.setLocation(resource);
+        configurer.setSystemPropertiesModeName("SYSTEM_PROPERTIES_MODE_OVERRIDE");
+        configurer.setIgnoreResourceNotFound(true);
         return configurer;
     }
 
@@ -38,6 +52,7 @@ public class AppConfig {
         return DateFormat.getDateTimeInstance();
     }
 
+    @Bean
     public Client client() {
         Client client = new Client();
         client.setId(environment.getProperty("id"));

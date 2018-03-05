@@ -52,7 +52,6 @@ public class App {
     }
 
     public App(){
-
     }
 
     App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> loggers) {
