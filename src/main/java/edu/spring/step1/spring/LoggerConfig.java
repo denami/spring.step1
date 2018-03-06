@@ -1,6 +1,5 @@
 package edu.spring.step1.spring;
 
-import edu.spring.step1.beans.Event;
 import edu.spring.step1.beans.EventType;
 import edu.spring.step1.loggers.EventLogger;
 import org.springframework.context.annotation.Bean;
